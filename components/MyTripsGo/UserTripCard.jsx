@@ -3,7 +3,7 @@ import React from "react";
 import { Image } from "react-native";
 import moment from "moment";
 
-export default function UserTripCard( {trip} ) {
+export default function UserTripCard({trip}) {
   const formatData = (data) => {
     return JSON.parse(data);
   };

@@ -4,12 +4,15 @@ import { Image } from 'react-native'
 import { __collections__ } from '../../app-example/constants/Options'
 import moment from 'moment'
 import UserTripCard from './UserTripCard'
-import { useRoute } from '@react-navigation/native'
+// import { useRoute } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
+// import { useExpoRouter } from 'expo-router/build/global-state/router-store'
+// import TripDetails from '../../app/tripDetail/TripDetails'
 
 export default function UserTripsList({userTrips}) {
   const LatestTrip = JSON.parse(userTrips[0]?.tripData);
   const router = useRouter();
+  // const route = useRoute();
   
   return userTrips&&(
     <View>
@@ -67,9 +70,12 @@ export default function UserTripsList({userTrips}) {
 
           </View>
           <View>
-          <TouchableOpacity onPress={()=>router.replace({pathname:'/tripDetail',params:{
-            trip:JSON.stringify(userTrips[0])
-          }})}  style={{
+          <TouchableOpacity onPress={()=>router.replace({
+            pathname: '/trip-details',
+            params:{
+              trip:userTrips[0]
+            }
+          })} style={{
             backgroundColor: '#000',
             padding: 10,
             borderRadius: 10,
@@ -84,8 +90,17 @@ export default function UserTripsList({userTrips}) {
           </View>
 
           {userTrips.map((trip,index)=>(
+            
             <UserTripCard trip={trip} key={index}/>
+            
+            
           ))}
+          {/* {userTrips.map((trip,index)=>(
+            
+            <TripDetails trip={trip} key={index}/>
+            
+            
+          ))} */}
 
         
         

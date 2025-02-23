@@ -31,7 +31,19 @@ export default function GenerateTrip() {
                                       .replace('{budget}', tripData?.budget);
             
             const result = await chatSession.sendMessage(FINAL_PROMPT);
-            const tripResp = JSON.parse(result.response.text());
+            let tripResp;
+            try {
+                tripResp = JSON.parse(result.response.text());
+            } catch (jsonError) {
+                console.error('JSON parsing error:', jsonError);
+                const rawResponse = result.response.text();
+                console.error('Raw response:', rawResponse);
+
+                ToastAndroid.show('Failed to parse trip data. Please try again.', ToastAndroid.SHORT);
+                setLoading(false);
+                return;
+            }
+
             setAiResponse(tripResp);
             
             // Save to Firestore
